@@ -128,11 +128,11 @@ c10::DataPtr SpyreAllocator::allocate(size_t nbytes) {
   if (nbytes == 0) {
     return {nullptr, nullptr, &ReportAndDelete, curr_device};
   }
-  auto allocator = getAllocator(device_id);
+  // auto allocator = getAllocator(device_id);
   flex::DeviceMemoryAllocationPtr data;  // a smart-pointer object
   // NOTE: last argument should be set to 0
-  allocator->TryAllocate(&data, nbytes, 0);
-  TORCH_CHECK(data, "Failed to allocate ", nbytes, " bytes on Spyre device.");
+  // allocator->TryAllocate(&data, nbytes, 0);
+  // TORCH_CHECK(data, "Failed to allocate ", nbytes, " bytes on Spyre device.");
   auto* ctx = new SharedOwnerCtx{std::move(data), device_id, nbytes};
   void* ctx_void = static_cast<void*>(ctx);
 
