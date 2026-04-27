@@ -96,18 +96,18 @@ void _startRuntime() {
   }
 
   std::shared_ptr<Runtime> runtime;
-  // auto s = flex::initializeRuntime(&runtime, logical_device_id);
+  auto s = flex::initializeRuntime(&runtime, logical_device_id);
   init_from_env();
   if (runtime) {
     GlobalRuntime::set(runtime);
-    // DEBUGINFO(s);
+    DEBUGINFO(s);
     std::string env_key = "AIU_WORLD_RANK_" + std::to_string(logical_device_id);
     const char *pci = std::getenv(env_key.c_str());
     DEBUGINFO("runtime started, device PCI bus ID:",
               pci ? pci : "(default/senlib)");
   } else {
     DEBUGINFO("runtime FAILED TO START.");
-    // throw std::runtime_error("Failed to initialize Spyre runtime. ");
+    throw std::runtime_error("Failed to initialize Spyre runtime. ");
   }
 }
 void startRuntime() {
